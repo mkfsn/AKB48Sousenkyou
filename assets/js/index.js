@@ -116,6 +116,14 @@ $(function () {
     years.forEach(function (year) {
       var data = json[year];
       var results = {name: year, data: []};
+
+      // Display only result of latest n year
+      if (latest_n_years > 0) {
+        latest_n_years--;
+      } else {
+        results['visible'] = false;
+      }
+
       $.each(data, function (rank, person) {
         var name = person['name'], votes = person['votes'];
         var t = ({name: name, y: votes});
@@ -123,13 +131,6 @@ $(function () {
         if (!(name in members))
           members[name] = {}
         members[name][year] = {rank: rank + 1, votes: votes};
-
-        // Display only result of latest n year
-        if (latest_n_years > 0) {
-          latest_n_years--;
-        } else {
-          results['visible'] = false;
-        }
 
         // Display only senbatsu member
         if (year > 2011 && rank < 16) {
