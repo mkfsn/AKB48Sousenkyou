@@ -112,6 +112,7 @@ var options = {
 $(function () {
   $.getJSON('./results.json', function (json) {
     var years = Object.keys(json).sort().reverse();
+    var latest_n_years = 3;
     years.forEach(function (year) {
       var data = json[year];
       var results = {name: year, data: []};
@@ -122,6 +123,14 @@ $(function () {
         if (!(name in members))
           members[name] = {}
         members[name][year] = {rank: rank + 1, votes: votes};
+
+        // Display only result of latest n year
+        if (latest_n_years > 0) {
+          results['visible'] = true;
+          latest_n_years--;
+        } else {
+          results['visible'] = false;
+        }
 
         // Display only senbatsu member
         if (year > 2011 && rank < 16) {
