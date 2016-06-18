@@ -126,7 +126,6 @@ $(function () {
 
         // Display only result of latest n year
         if (latest_n_years > 0) {
-          results['visible'] = true;
           latest_n_years--;
         } else {
           results['visible'] = false;
